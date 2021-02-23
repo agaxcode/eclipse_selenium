@@ -1,6 +1,6 @@
 package tests;
 
-import org.junit.After;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -11,15 +11,13 @@ import pageobjects.Login;
 
 
 
-public class TestLogin {
+public class TestLogin extends BaseTest{
 
-    private WebDriver driver;
+   
     private Login login;
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver",  "/Users/aga/Documents/Webdriver/88/chromedriver");
-        driver = new ChromeDriver();
         login = new Login(driver);
     }
 
@@ -36,9 +34,12 @@ public class TestLogin {
         assertFalse("success message was present after providing bogus credentials",
                 login.successMessagePresent());
     }
-
-    @After
-    public void tearDown() {
-        driver.quit();
+    
+    @Test
+    public void failed2() {
+        login.with("tomsmith", "bad password");
+        assertFalse("success message was present after providing bogus credentials",
+                login.successMessagePresent());
     }
+
 }
